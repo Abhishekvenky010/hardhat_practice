@@ -1,19 +1,22 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-contract Counter {
-  uint public x;
+import "./interfaces/ICounter.sol";
 
-  event Increment(uint by);
+contract Counter is ICounter {
 
-  function inc() public {
-    x++;
-    emit Increment(1);
-  }
+    uint256 private count;
 
-  function incBy(uint by) public {
-    require(by > 0, "incBy: increment should be positive");
-    x += by;
-    emit Increment(by);
-  }
+    function increment() external override {
+        count++;
+    }
+
+    function getCount()
+        external
+        view
+        override
+        returns (uint256)
+    {
+        return count;
+    }
 }
